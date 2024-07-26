@@ -14,8 +14,8 @@ export function p(el, clas = '', id = '') {
     return `<p class="${clas}" id="${id}">${el}</p>`
 }
 
-export function ul(el, clas = '', id = '') {
-    return  `<ul class="${clas}" id="${id}">${el}</ul>`
+export function ul(el, clas = '', id = '', dataWidget = '', role = '', dataAccordion = '') {
+    return  `<ul class="${clas}" id="${id}" data-widget="${dataWidget}" role="${role}" data-accordion="${dataAccordion}">${el}</ul>`
 }
 
 export function h4(el, clas = '') {
@@ -64,6 +64,18 @@ export function pre(el, id = '') {
 
 export function label(el, clas) {
     return `<label class="${clas}">${el}</label>`
+}
+
+export function aside(el, clas) {
+    return `<aside class="${clas}">${el}</aside>`
+}
+
+export function nav(el, clas) {
+    return `<nav class="${clas}">${el}</nav>`
+}
+
+export function section(el, clas) {
+    return `<section class="${clas}">${el}</section>`
 }
 
 function prepareParams(params) {

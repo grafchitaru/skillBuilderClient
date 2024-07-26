@@ -1,13 +1,19 @@
-import {loadPage} from "./pages.js"
+import {defaultStructurePage, loadPage, loginStructurePage} from "./pages.js"
 import {selectors} from "./selectors.js";
 import {config} from "./config.js";
 import {generateServiceMenu} from "./menu.js";
+import {getCookie, getHash} from "./utils.js";
 
-loadPage("index")
+loadPage(getHash() || config.defaultHash)
 
-config.main_menu.forEach((p) => {
-    generateServiceMenu(p)
-})
+if (getCookie("token")) {
+    defaultStructurePage()
+    config.mainMenu.forEach((p) => {
+        generateServiceMenu(p)
+    })
+} else {
+    loginStructurePage()
+}
 
 $(selectors.body).on("click", `.${selectors.navLink}`, function() {
     loadPage($(this).attr("id"))

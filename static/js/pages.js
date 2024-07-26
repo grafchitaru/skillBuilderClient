@@ -1,5 +1,7 @@
 import {config} from "./config.js"
-import {selectors} from "./selectors.js";
+import {selectors} from "./selectors.js"
+import {getCookie} from "./utils.js"
+import {div, aside, ul, nav, section} from "./html.js";
 
 export async function pages(page) {
     let module = (await import(`./pages/${defaultPage(page)}.js`))
@@ -12,8 +14,11 @@ export async function pages(page) {
 }
 
 function defaultPage(page) {
+    if (page === "login" || page === "registration") {
+        page = getCookie("token") ? config.defaultPage : page
+    }
     if (page === "index") {
-        page = config.defaultPage
+        page = getCookie("token") ? config.defaultPage : "login"
     }
     if (!config.pages.includes(page)) {
         page = "not_found"
@@ -26,4 +31,15 @@ export function loadPage(p) {
         $(selectors.body).attr(selectors.class, page.bodyClass)
         $(selectors.title).text(page.title)
     })
+}
+
+export function defaultStructurePage() {
+    $(selectors.body).html(div((
+        aside(nav(ul("", selectors.navUl, selectors.servicesMenus, "treeview", "menu", "false"), selectors.navMt2), selectors.defaultStructurePageAside) +
+        div(section(div("", selectors.containerFluid), selectors.content), selectors.contentWrapper)
+    ), selectors.wrapper))
+}
+
+export function loginStructurePage() {
+    $(selectors.body).html()
 }

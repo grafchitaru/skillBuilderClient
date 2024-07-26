@@ -64,3 +64,9 @@ function uuid() {
 function decreaseFirstLetter(string) {
     return string.charAt(0).toLowerCase() + string.slice(1)
 }
+
+export function getHash() {
+    const url = new URL(window.location.href);
+    const hash = url.hash;
+    return hash.replace('#', '')
+}
