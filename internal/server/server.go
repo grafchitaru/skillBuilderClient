@@ -5,29 +5,35 @@ import (
 	"github.com/grafchitaru/skillBuilderClient/internal/handlers"
 	"log"
 	"net/http"
+	"os/exec"
+	"runtime"
 )
 
 func New(ctx handlers.Handlers) {
-	hc := &handlers.Handlers{
-		Config: ctx.Config,
-	}
-
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/index.html")
 	})
+	go openBrowser("http://" + ctx.Config.HTTPServerAddress + ":" + ctx.Config.HTTPServerPort + "/")
 
-	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Version: %s\nBuild Date: %s", version, buildDate)
-	})
+	fmt.Println("Starting server on :" + ctx.Config.HTTPServerPort)
+	fmt.Println(http.ListenAndServe(":"+ctx.Config.HTTPServerPort, nil))
+}
 
-	go openBrowser("http://127.0.0.1:8081/")
+func openBrowser(url string) {
+	var err error
 
-	log.Println("Starting server on :8081")
-	log.Fatal(http.ListenAndServe(":8081", nil))
-
-	err := http.ListenAndServe(ctx.Config.HTTPServerAddress, r)
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Run()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Run()
+	case "darwin":
+		err = exec.Command("open", url).Run()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
 	if err != nil {
-		fmt.Println("Error server: %w", err)
+		log.Fatal(err)
 	}
 }

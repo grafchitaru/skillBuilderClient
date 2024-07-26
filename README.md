@@ -10,3 +10,7 @@ Run app
 ```
 make run
 ```
+Run ver
+```
+make run-ver
+```

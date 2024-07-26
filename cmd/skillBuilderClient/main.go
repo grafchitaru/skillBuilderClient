@@ -5,36 +5,30 @@ import (
 	"github.com/grafchitaru/skillBuilderClient/internal/config"
 	"github.com/grafchitaru/skillBuilderClient/internal/handlers"
 	"github.com/grafchitaru/skillBuilderClient/internal/server"
-	"log"
-	"os/exec"
-	"runtime"
 )
 
-const (
-	version   = "1.0.0"
-	buildDate = "2023-10-01"
+var (
+	buildVersion string
+	buildDate    string
+	buildCommit  string
 )
 
 func main() {
+	printBuildInfo()
 	cfg := *config.NewConfig()
 	server.New(handlers.Handlers{Config: cfg})
 
 }
 
-func openBrowser(url string) {
-	var err error
+func printBuildInfo() {
+	fmt.Println("Build version:", getValueOrDefault(buildVersion, "N/A"))
+	fmt.Println("Build date:", getValueOrDefault(buildDate, "N/A"))
+	fmt.Println("Build commit:", getValueOrDefault(buildCommit, "N/A"))
+}
 
-	switch runtime.GOOS {
-	case "linux":
-		err = exec.Command("xdg-open", url).Run()
-	case "windows":
-		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Run()
-	case "darwin":
-		err = exec.Command("open", url).Run()
-	default:
-		err = fmt.Errorf("unsupported platform")
+func getValueOrDefault(value string, defaultValue string) string {
+	if value == "" {
+		return defaultValue
 	}
-	if err != nil {
-		log.Fatal(err)
-	}
+	return value
 }
