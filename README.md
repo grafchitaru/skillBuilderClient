@@ -1,16 +1,14 @@
 Pre
 ```
-cp example.env .env
+    cp example.env .env
 ```
-Build
+Npm install
 ```
-make build
+	cd static/
+	npm install
+	cd ../
 ```
-Run app
+Run
 ```
-make run
-```
-Run ver
-```
-make run-ver
+    make run
 ```

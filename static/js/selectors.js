@@ -1,0 +1,15 @@
+export let selectors = {
+    title: "title",
+    body: "body",
+    bodyLogin: "hold-transition login-page",
+    bodyRegistration: "hold-transition login-page",
+    bodyCollections: "hold-transition sidebar-mini",
+    bodyCollection: "hold-transition sidebar-mini",
+    bodyCreateCollection: "hold-transition sidebar-mini",
+    bodyCreateMaterial: "hold-transition sidebar-mini",
+    bodyMaterial: "hold-transition sidebar-mini",
+    bodySearch: "hold-transition sidebar-mini",
+    bodyUpdateCollection: "hold-transition sidebar-mini",
+    bodyUpdateMaterial: "hold-transition sidebar-mini",
+    bodyNotFound: "hold-transition sidebar-mini",
+}

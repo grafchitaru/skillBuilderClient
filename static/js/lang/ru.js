@@ -1,0 +1,13 @@
+export let lang = {
+    titleLogin: "Авторизация",
+    titleRegistration: "Регистрация",
+    titleCollections: "Коллекции скиллов",
+    titleCollection: "Коллекция скиллов",
+    titleCreateCollection: "Создать коллекцию",
+    titleCreateMaterial: "Создать материал",
+    titleMaterial: "Материал",
+    titleSearch: "Поиск",
+    titleUpdateCollection: "Обновить коллекцию",
+    titleUpdateMaterial: "Обновить материал",
+    titleNotFound: "Страница не найдена",
+}
