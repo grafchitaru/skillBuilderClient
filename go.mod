@@ -1,4 +1,4 @@
-module github.com/grafchitaru/skillBuilder
+module github.com/grafchitaru/skillBuilderClient
 
 go 1.22.0
 

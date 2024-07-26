@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/grafchitaru/skillBuilder/internal/config"
-	"github.com/grafchitaru/skillBuilder/internal/handlers"
-	"github.com/grafchitaru/skillBuilder/internal/server"
+	"github.com/grafchitaru/skillBuilderClient/internal/config"
+	"github.com/grafchitaru/skillBuilderClient/internal/handlers"
+	"github.com/grafchitaru/skillBuilderClient/internal/server"
 	"log"
 	"os/exec"
 	"runtime"
