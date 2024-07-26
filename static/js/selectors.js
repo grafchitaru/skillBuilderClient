@@ -1,4 +1,5 @@
 export let selectors = {
+    class: "class",
     title: "title",
     body: "body",
     bodyLogin: "hold-transition login-page",
@@ -12,4 +13,11 @@ export let selectors = {
     bodyUpdateCollection: "hold-transition sidebar-mini",
     bodyUpdateMaterial: "hold-transition sidebar-mini",
     bodyNotFound: "hold-transition sidebar-mini",
+    iconTh: "nav-icon fas fa-th",
+    navLink: "nav-link",
+    navItem: "nav-item",
+    servicesMenu: "#servicesMenu",
+    iconCreateCollection: "nav-icon far fa-plus-square",
+    iconCollections: "nav-icon fas fa-th",
+    iconSearch: "nav-icon fas fa-search",
 }
