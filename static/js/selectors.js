@@ -30,4 +30,8 @@ export let selectors = {
     servicesMenus: "servicesMenu",
     content: "content",
     containerFluid: "container-fluid",
+    loginBox: "login-box",
+    loginLogo: "login-logo",
+    card: "card",
+    cardBodyLogin: "card-body login-card-body",
 }

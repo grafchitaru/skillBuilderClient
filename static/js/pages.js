@@ -1,13 +1,13 @@
 import {config} from "./config.js"
 import {selectors} from "./selectors.js"
 import {getCookie} from "./utils.js"
-import {div, aside, ul, nav, section} from "./html.js";
+import {div, aside, ul, nav, section, a, b} from "./html.js";
 
 export async function pages(page) {
     let module = (await import(`./pages/${defaultPage(page)}.js`))
     if (module) {
-        const { title, bodyClass, icon } = module
-        return { title, bodyClass, icon }
+        const {title, bodyClass, icon} = module
+        return {title, bodyClass, icon}
     }
 
     return null
@@ -27,7 +27,7 @@ function defaultPage(page) {
 }
 
 export function loadPage(p) {
-    pages(p).then(page=>  {
+    pages(p).then(page => {
         $(selectors.body).attr(selectors.class, page.bodyClass)
         $(selectors.title).text(page.title)
     })
@@ -41,5 +41,8 @@ export function defaultStructurePage() {
 }
 
 export function loginStructurePage() {
-    $(selectors.body).html()
+    $(selectors.body).html(div((
+        div(a(b(config.title), "", "", "#"), selectors.loginLogo) +
+            div(div("", selectors.cardBodyLogin), selectors.card)
+    ), selectors.loginBox))
 }

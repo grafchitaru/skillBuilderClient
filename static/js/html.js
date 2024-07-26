@@ -78,6 +78,10 @@ export function section(el, clas) {
     return `<section class="${clas}">${el}</section>`
 }
 
+export function b(el) {
+    return `<b>${el}</b>`
+}
+
 function prepareParams(params) {
     let allParams = ''
     if (params !== {}) {
