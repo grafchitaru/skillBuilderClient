@@ -3,6 +3,8 @@ import {selectors} from "./selectors.js";
 import {config} from "./config.js";
 import {generateServiceMenu} from "./menu.js";
 import {getCookie, getHash} from "./utils.js";
+import {submitLogin} from "./pages/login.js";
+import {submitRegistration} from "./pages/registration.js";
 
 loadPage(getHash() || config.defaultHash)
 
@@ -15,6 +17,15 @@ if (getCookie("token")) {
     loginStructurePage()
 }
 
-$(selectors.body).on("click", `.${selectors.navLink}`, function() {
-    loadPage($(this).attr("id"))
-})
+$(selectors.body)
+    .on("click", `.${selectors.navLink}, a`, function() {
+        loadPage($(this).attr("id"))
+    })
+    .on("click", `#submitLogin`, function() {
+        submitLogin()
+        return false
+    })
+    .on("click", `#submitRegistration`, function() {
+        submitRegistration()
+        return false
+    })

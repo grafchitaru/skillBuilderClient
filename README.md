@@ -1,6 +1,7 @@
 Pre
 ```
     cp example.env .env
+    cp static/example.env.json static/env.json
 ```
 Npm install
 ```

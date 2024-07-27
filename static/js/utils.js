@@ -66,7 +66,10 @@ function decreaseFirstLetter(string) {
 }
 
 export function getHash() {
-    const url = new URL(window.location.href);
-    const hash = url.hash;
+    if (!getCookie("token")) {
+        return "login"
+    }
+    const url = new URL(window.location.href)
+    const hash = url.hash
     return hash.replace('#', '')
 }

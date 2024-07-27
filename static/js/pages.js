@@ -6,8 +6,8 @@ import {div, aside, ul, nav, section, a, b} from "./html.js";
 export async function pages(page) {
     let module = (await import(`./pages/${defaultPage(page)}.js`))
     if (module) {
-        const {title, bodyClass, icon} = module
-        return {title, bodyClass, icon}
+        const {title, bodyClass, icon, htmlReplace, html} = module
+        return {title, bodyClass, icon, htmlReplace, html}
     }
 
     return null
@@ -30,6 +30,7 @@ export function loadPage(p) {
     pages(p).then(page => {
         $(selectors.body).attr(selectors.class, page.bodyClass)
         $(selectors.title).text(page.title)
+        $(page.htmlReplace).html(page.html)
     })
 }
 

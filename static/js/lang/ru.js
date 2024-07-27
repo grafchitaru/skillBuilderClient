@@ -10,4 +10,8 @@ export let lang = {
     titleUpdateCollection: "Обновить коллекцию",
     titleUpdateMaterial: "Обновить материал",
     titleNotFound: "Страница не найдена",
+    login: "Логин",
+    password: "Пароль",
+    authorize: "Авторизоваться",
+    register: "Зарегистрироваться",
 }
