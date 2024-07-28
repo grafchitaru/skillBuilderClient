@@ -7,6 +7,8 @@ import {submitLogin} from "./pages/login.js";
 import {submitRegistration} from "./pages/registration.js";
 import {submitCreateCollection} from "./pages/create_collection.js";
 import {submitUpdateCollection} from "./pages/update_collection.js";
+import {submitSearchCollection} from "./pages/search.js"
+import {addToUserCollection, removeFromUserCollection} from "./pages/collections.js";
 
 loadPage(getHash() || config.defaultHash)
 
@@ -40,10 +42,22 @@ $(selectors.body)
         return false
     })
     .on("click", `.updateCollectionTr`, function() {
-        loadPage("update_collection", $(this).attr("id"))
+        loadPage("update_collection", $(this).attr("data-id"))
         return false
     })
     .on("click", `#submitUpdateCollection`, function() {
         submitUpdateCollection()
+        return false
+    })
+    .on("click", `#searchCollections`, function() {
+        submitSearchCollection()
+        return false
+    })
+    .on("click", `.addToUserCollection`, function() {
+        addToUserCollection($(this).attr("data-id"))
+        return false
+    })
+    .on("click", `.removeFromUserCollection`, function() {
+        removeFromUserCollection($(this).attr("data-id"))
         return false
     })

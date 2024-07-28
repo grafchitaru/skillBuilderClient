@@ -17,4 +17,8 @@ export let lang = {
     title: "Название",
     description: "Описание",
     progress: "Прогресс",
+    search: "Поиск",
+    edit: "Редактировать",
+    addToCollectionUser: "Добавить в коллекцию пользователя",
+    removeFromCollectionUser: "Удалить из коллекции пользователя"
 }

@@ -17,6 +17,22 @@ export function sendPost(url, data, success, error) {
     })
 }
 
+export function sendDelete(url, data, success, error) {
+    $.ajax({
+        url: `${env.serverAddress}${url}`,
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        xhrFields: {
+            withCredentials: true
+        },
+        success: success,
+        error: function(xhr, status, error) {
+            alert("Failed: " + error)
+        }
+    })
+}
+
 export function sendPut(url, data, success, error) {
     $.ajax({
         url: `${env.serverAddress}${url}`,

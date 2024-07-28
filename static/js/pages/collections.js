@@ -1,18 +1,20 @@
 import {selectors} from "../selectors.js"
 import {lang} from "../lang/ru.js"
-import {sendGet} from "../forms.js";
+import {sendDelete, sendGet, sendPost} from "../forms.js";
 import {getCookie, parseJwt} from "../utils.js";
+import {userCollections, userCollectionIds} from "./search.js"
 
 export const title = lang.titleCollections
 export const bodyClass = selectors.bodyCollections
 export const icon = selectors.iconCollections
 export function pageInit() {
+    userCollections()
     let i = 0
     sendGet("/api/collections/user", function (response) {
         JSON.parse(response).forEach((data) => {
             i++
-            let pregress = data.xp.Int64 === 0 ? 0 : (data.sum_xp.Int64 / data.xp.Int64)
-            appendProgressTr(data.id, i, data.name, pregress, parseJwt(getCookie("token")).user_id === data.user_id)
+            let progress = data.xp.Int64 === 0 ? 0 : (data.sum_xp.Int64 / data.xp.Int64)
+            appendProgressTr(data.id, i, data.name, progress, parseJwt(getCookie("token")).user_id === data.user_id, userCollectionIds.includes(data.id))
         })
     })
 }
@@ -43,11 +45,17 @@ export const html = `<br /><div class="row">
     </div>
 </div>`
 
-function appendProgressTr(id, number, title, progress, isThisUserCreated = false) {
-    let updateCollectionTr
+export function appendProgressTr(id, number, title, progress, isThisUserCreated = false, inUserCollection = false) {
+    let updateCollectionTr, addToUserCollection
     if (isThisUserCreated) {
-        updateCollectionTr = `<td class="updateCollectionTr" id="${id}" style="cursor: pointer"><i class="fas fa-edit"></i></td>`
+        updateCollectionTr = `<td class="updateCollectionTr" data-id="${id}" style="cursor: pointer"><i title="${lang.edit}" class="fas fa-edit"></i></td>`
+    } else {
+        addToUserCollection = `<td class="addToUserCollection" data-id="${id}" style="cursor: pointer"><i title="${lang.addToCollectionUser}" class="fas fa-plus"></i></td>`
+        if (inUserCollection) {
+            addToUserCollection = `<td class="removeFromUserCollection" data-id="${id}" style="cursor: pointer"><i title="${lang.removeFromCollectionUser}" class="fas fa-minus"></i></td>`
+        }
     }
+
     $("#collectionList").append(`
 <tr>
     <td class="collectionTr" id="${id}" style="cursor: pointer">${number}.</td>
@@ -59,6 +67,7 @@ function appendProgressTr(id, number, title, progress, isThisUserCreated = false
         <span class="badge ${prepareClassBar(progress)}">${progress}%</span>
     </td>
     ${updateCollectionTr}
+    ${addToUserCollection}
 </tr>`)
 }
 
@@ -73,4 +82,18 @@ function prepareClassBar(progress) {
         return `bg-warning`
     }
     return `bg-primary`
+}
+
+export function addToUserCollection(id) {
+    sendPost(`/api/collection/${id}/user`, {id:id}, function () {
+        $(`td.addToUserCollection[data-id="${id}"]`).html(`<i title="${lang.removeFromCollectionUser}" class="fas fa-minus"></i>`)
+        window.location.reload()
+    })
+}
+
+export function removeFromUserCollection(id) {
+    sendDelete(`/api/collection/${id}/user`, {id:id}, function () {
+        $(`td.removeFromUserCollection[data-id="${id}"]`).html(`<i title="${lang.addToCollectionUser}" class="fas fa-plus"></i>`)
+        window.location.reload()
+    })
 }
