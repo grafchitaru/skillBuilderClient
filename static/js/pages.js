@@ -3,6 +3,8 @@ import {selectors} from "./selectors.js"
 import {getCookie} from "./utils.js"
 import {div, aside, ul, nav, section, a, b} from "./html.js";
 
+export let entityId
+
 export async function pages(page) {
     let module = (await import(`./pages/${defaultPage(page)}.js`))
     if (module) {
@@ -27,12 +29,14 @@ function defaultPage(page) {
 }
 
 export function loadPage(p, id = "") {
+    entityId = id
     pages(p).then(page => {
         $(selectors.body).attr(selectors.class, page.bodyClass)
         $(selectors.title).text(page.title)
         $(page.htmlReplace).html(page.html)
         page.pageInit()
     })
+    //window.location.href = `/#${p}`
 }
 
 export function defaultStructurePage() {

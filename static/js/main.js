@@ -6,6 +6,7 @@ import {getCookie, getHash} from "./utils.js";
 import {submitLogin} from "./pages/login.js";
 import {submitRegistration} from "./pages/registration.js";
 import {submitCreateCollection} from "./pages/create_collection.js";
+import {submitUpdateCollection} from "./pages/update_collection.js";
 
 loadPage(getHash() || config.defaultHash)
 
@@ -36,4 +37,13 @@ $(selectors.body)
     })
     .on("click", `.collectionTr`, function() {
         loadPage("collection", $(this).attr("id"))
+        return false
+    })
+    .on("click", `.updateCollectionTr`, function() {
+        loadPage("update_collection", $(this).attr("id"))
+        return false
+    })
+    .on("click", `#submitUpdateCollection`, function() {
+        submitUpdateCollection()
+        return false
     })

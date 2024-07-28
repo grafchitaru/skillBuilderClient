@@ -1,6 +1,7 @@
 import {selectors} from "../selectors.js"
 import {lang} from "../lang/ru.js"
 import {sendGet} from "../forms.js";
+import {getCookie, parseJwt} from "../utils.js";
 
 export const title = lang.titleCollections
 export const bodyClass = selectors.bodyCollections
@@ -11,7 +12,7 @@ export function pageInit() {
         JSON.parse(response).forEach((data) => {
             i++
             let pregress = data.xp.Int64 === 0 ? 0 : (data.sum_xp.Int64 / data.xp.Int64)
-            appendProgressTr(data.id, i, data.name, pregress)
+            appendProgressTr(data.id, i, data.name, pregress, parseJwt(getCookie("token")).user_id === data.user_id)
         })
     })
 }
@@ -42,17 +43,22 @@ export const html = `<br /><div class="row">
     </div>
 </div>`
 
-function appendProgressTr(id, number, title, progress) {
+function appendProgressTr(id, number, title, progress, isThisUserCreated = false) {
+    let updateCollectionTr
+    if (isThisUserCreated) {
+        updateCollectionTr = `<td class="updateCollectionTr" id="${id}" style="cursor: pointer"><i class="fas fa-edit"></i></td>`
+    }
     $("#collectionList").append(`
-<tr class="collectionTr" id="${id}" style="cursor: pointer">
-    <td>${number}.</td>
-    <td>${title}</td>
-    <td>
+<tr>
+    <td class="collectionTr" id="${id}" style="cursor: pointer">${number}.</td>
+    <td class="collectionTr" id="${id}" style="cursor: pointer">${title}</td>
+    <td class="collectionTr" id="${id}" style="cursor: pointer">
         <div class="progress progress-xs">
             <div class="progress-bar ${prepareClassBar(progress)}" style="width: ${progress}%"></div>
         </div>
+        <span class="badge ${prepareClassBar(progress)}">${progress}%</span>
     </td>
-    <td><span class="badge ${prepareClassBar(progress)}">${progress}%</span></td>
+    ${updateCollectionTr}
 </tr>`)
 }
 
