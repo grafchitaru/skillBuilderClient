@@ -5,6 +5,7 @@ import {generateServiceMenu} from "./menu.js";
 import {getCookie, getHash} from "./utils.js";
 import {submitLogin} from "./pages/login.js";
 import {submitRegistration} from "./pages/registration.js";
+import {submitCreateCollection} from "./pages/create_collection.js";
 
 loadPage(getHash() || config.defaultHash)
 
@@ -27,5 +28,9 @@ $(selectors.body)
     })
     .on("click", `#submitRegistration`, function() {
         submitRegistration()
+        return false
+    })
+    .on("click", `#submitCreateCollection`, function() {
+        submitCreateCollection()
         return false
     })

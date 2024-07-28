@@ -73,3 +73,9 @@ export function getHash() {
     const hash = url.hash
     return hash.replace('#', '')
 }
+
+export function summernoteInit() {
+    $(function () {
+        $('.summernote').summernote()
+    })
+}

@@ -36,6 +36,9 @@ export const html = `<p class="login-box-msg">${lang.titleRegistration}</p>
 <p class="mb-0">
     <a href="/#login" id="login" class="text-center">${lang.titleLogin}</a>
 </p>`
+export function pageInit() {
+
+}
 
 export function submitRegistration() {
     let login = $("#login").val()

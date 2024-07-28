@@ -1,4 +1,5 @@
 import {env} from "../env.js";
+import {getCookie} from "./utils.js";
 
 export function sendPost(url, data, success, error) {
     $.ajax({
@@ -6,6 +7,9 @@ export function sendPost(url, data, success, error) {
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(data),
+        xhrFields: {
+            withCredentials: true
+        },
         success: success,
         error: function(xhr, status, error) {
             alert("Failed: " + error)

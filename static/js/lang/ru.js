@@ -14,4 +14,6 @@ export let lang = {
     password: "Пароль",
     authorize: "Авторизоваться",
     register: "Зарегистрироваться",
+    title: "Название",
+    description: "Описание",
 }
