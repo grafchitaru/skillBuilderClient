@@ -26,7 +26,7 @@ function defaultPage(page) {
     return page
 }
 
-export function loadPage(p) {
+export function loadPage(p, id = "") {
     pages(p).then(page => {
         $(selectors.body).attr(selectors.class, page.bodyClass)
         $(selectors.title).text(page.title)

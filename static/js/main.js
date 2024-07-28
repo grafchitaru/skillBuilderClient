@@ -34,3 +34,6 @@ $(selectors.body)
         submitCreateCollection()
         return false
     })
+    .on("click", `.collectionTr`, function() {
+        loadPage("collection", $(this).attr("id"))
+    })

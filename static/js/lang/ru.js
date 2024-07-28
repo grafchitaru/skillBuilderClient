@@ -16,4 +16,5 @@ export let lang = {
     register: "Зарегистрироваться",
     title: "Название",
     description: "Описание",
+    progress: "Прогресс",
 }

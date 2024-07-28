@@ -16,3 +16,18 @@ export function sendPost(url, data, success, error) {
         }
     })
 }
+
+export function sendGet(url, success, error) {
+    $.ajax({
+        url: `${env.serverAddress}${url}`,
+        type: "GET",
+        contentType: "application/json",
+        xhrFields: {
+            withCredentials: true
+        },
+        success: success,
+        error: function(xhr, status, error) {
+            alert("Failed: " + error)
+        }
+    })
+}
