@@ -70,7 +70,7 @@ export function submitSearchCollection() {
         let collections = response.collections
         collections.forEach((data) => {
             i++
-            let progress = data.xp.Int64 === 0 ? 0 : (data.sum_xp.Int64 / data.xp.Int64)
+            let progress = data.xp.Int64 === 0 ? 0 : ((100 * data.xp.Int64) / data.sum_xp.Int64)
             appendProgressTr(data.id, i, data.name, progress, parseJwt(getCookie("token")).user_id === data.user_id, userCollectionIds.includes(data.id))
         })
         //let materials = response.materials
@@ -84,7 +84,7 @@ function defaultSearch() {
     sendGet("/api/collections", function (response) {
         JSON.parse(response).forEach((data) => {
             i++
-            let progress = data.xp.Int64 === 0 ? 0 : (data.sum_xp.Int64 / data.xp.Int64)
+            let progress = data.xp.Int64 === 0 ? 0 : ((100 * data.xp.Int64) / data.sum_xp.Int64)
             appendProgressTr(data.id, i, data.name, progress, parseJwt(getCookie("token")).user_id === data.user_id, userCollectionIds.includes(data.id))
         })
     })

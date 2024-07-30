@@ -45,7 +45,7 @@ export function submitRegistration() {
     let password = $("#password").val()
 
     if (login === "" || password === "") {
-        alert("Все поля обязательны для заполнения")
+        alert(lang.allFieldsNeedToFeel)
         return false
     }
 

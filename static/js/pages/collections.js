@@ -13,7 +13,7 @@ export function pageInit() {
     sendGet("/api/collections/user", function (response) {
         JSON.parse(response).forEach((data) => {
             i++
-            let progress = data.xp.Int64 === 0 ? 0 : (data.sum_xp.Int64 / data.xp.Int64)
+            let progress = data.xp.Int64 === 0 ? 0 : ((100 * data.xp.Int64) / data.sum_xp.Int64)
             appendProgressTr(data.id, i, data.name, progress, parseJwt(getCookie("token")).user_id === data.user_id, userCollectionIds.includes(data.id))
         })
     })
@@ -46,6 +46,7 @@ export const html = `<br /><div class="row">
 </div>`
 
 export function appendProgressTr(id, number, title, progress, isThisUserCreated = false, inUserCollection = false) {
+    progress = Math.ceil(progress)
     let updateCollectionTr, addToUserCollection
     if (isThisUserCreated) {
         updateCollectionTr = `<td class="updateCollectionTr" data-id="${id}" style="cursor: pointer"><i title="${lang.edit}" class="fas fa-edit"></i></td>`
@@ -62,16 +63,16 @@ export function appendProgressTr(id, number, title, progress, isThisUserCreated 
     <td class="collectionTr" id="${id}" style="cursor: pointer">${title}</td>
     <td class="collectionTr" id="${id}" style="cursor: pointer">
         <div class="progress progress-xs">
-            <div class="progress-bar ${prepareClassBar(progress)}" style="width: ${progress}%"></div>
+            <div class="progress-bar ${prepareClassBar(progress)}" data-progress="${progress}" style="width: ${progress}%"></div>
         </div>
-        <span class="badge ${prepareClassBar(progress)}">${progress}%</span>
+        <span class="badge ${prepareClassBar(progress)}" data-progress="${progress}">${progress}%</span>
     </td>
     ${updateCollectionTr}
     ${addToUserCollection}
 </tr>`)
 }
 
-function prepareClassBar(progress) {
+export function prepareClassBar(progress) {
     if (progress > 90) {
         return `bg-success`
     }

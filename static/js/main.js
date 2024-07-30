@@ -9,6 +9,8 @@ import {submitCreateCollection} from "./pages/create_collection.js";
 import {submitUpdateCollection} from "./pages/update_collection.js";
 import {submitSearchCollection} from "./pages/search.js"
 import {addToUserCollection, removeFromUserCollection} from "./pages/collections.js";
+import {setXpFromTypeMaterials, submitCreateMaterial} from "./pages/create_material.js";
+import {setUserCompleteMaterial, setUserUnCompleteMaterial} from "./pages/collection.js";
 
 loadPage(getHash() || config.defaultHash)
 
@@ -37,6 +39,10 @@ $(selectors.body)
         submitCreateCollection()
         return false
     })
+    .on("click", `#submitCreateMaterial`, function() {
+        submitCreateMaterial()
+        return false
+    })
     .on("click", `.collectionTr`, function() {
         loadPage("collection", $(this).attr("id"))
         return false
@@ -59,5 +65,21 @@ $(selectors.body)
     })
     .on("click", `.removeFromUserCollection`, function() {
         removeFromUserCollection($(this).attr("data-id"))
+        return false
+    })
+    .on("click", `#addNewMaterial`, function() {
+        loadPage("create_material", $(this).attr("data-id"))
+        return false
+    })
+    .on("change", `#typeMaterials`, function() {
+        setXpFromTypeMaterials($(this).val())
+        return false
+    })
+    .on("change", `.userCompleteMaterial`, function() {
+        setUserCompleteMaterial($(this).attr("data-id"), $(this).attr("data-xp"))
+        return false
+    })
+    .on("change", `.userUnCompleteMaterial`, function() {
+        setUserUnCompleteMaterial($(this).attr("data-id"), $(this).attr("data-xp"))
         return false
     })
