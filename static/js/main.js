@@ -48,6 +48,7 @@ $(selectors.body)
         return false
     })
     .on("click", `.updateCollectionTr`, function() {
+        console.log($(this).attr("data-id"))
         loadPage("update_collection", $(this).attr("data-id"))
         return false
     })
@@ -68,6 +69,7 @@ $(selectors.body)
         return false
     })
     .on("click", `#addNewMaterial`, function() {
+        console.log($(this).attr("data-id"))
         loadPage("create_material", $(this).attr("data-id"))
         return false
     })

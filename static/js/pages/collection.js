@@ -29,6 +29,7 @@ export function pageInit() {
             appendMaterialTr(data.id, i, data.name, data.type_id, data.xp, data.link, data.completed)
         })
     })
+    $("#addNewMaterial").attr("data-id", entityId)
 }
 export const htmlReplace = ".container-fluid"
 export const html = `<br /><div class="row">

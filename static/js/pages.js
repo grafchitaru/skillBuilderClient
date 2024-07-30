@@ -30,6 +30,7 @@ function defaultPage(page) {
 
 export function loadPage(p, id = "") {
     entityId = id
+    console.log(entityId)
     pages(p).then(page => {
         $(selectors.body).attr(selectors.class, page.bodyClass)
         $(selectors.title).text(page.title)

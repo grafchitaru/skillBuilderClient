@@ -91,7 +91,7 @@ export function submitCreateMaterial() {
     }
 
     sendPost("/api/material", data, function (response){
-        window.location.href = `/#collection`
+        window.location.href = `/#collections`
         window.location.reload()
     })
 }
